@@ -1,0 +1,26 @@
+{
+  "name": "udacity-c2-restapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node .",
+    "tsc": "tsc",
+    "dev": "ts-node-dev --respawn --transpileOnly ./src/index.ts",
+    "prod": "tsc && node ./www/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4",
+    "ts-node-dev": "^1.0.0-pre.32"
+  },
+  "devDependencies": {
+    "@types/express": "^4.16.1",
+    "@types/node": "^11.11.6",
+    "tslint": "^5.14.0",
+    "typescript": "^3.3.4000"
+  }
+}
