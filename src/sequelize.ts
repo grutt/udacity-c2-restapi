@@ -1,5 +1,5 @@
 import {Sequelize} from 'sequelize-typescript';
-// import { FeedItem } from './controllers/models'
+// import { FeedItem } from './controllers/v0/models'
 
 const sq =  new Sequelize({
   database: 'database_dev',
@@ -7,7 +7,9 @@ const sq =  new Sequelize({
   username: '',
   password: '',
   storage: ':memory:',
-  modelPaths: [__dirname + '/controllers/models']
+  modelPaths: [__dirname + '/controllers/v0/models']
 });
+
+// sq.addModels([]);
 
 export const sequelize = sq;

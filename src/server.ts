@@ -2,20 +2,32 @@ import express from 'express';
 import { sequelize } from './sequelize';
 // import {Sequelize} from 'sequelize-typescript';
 
-import { FeedItem } from './controllers/models/FeedItem';
+import { IndexRouter } from './controllers/v0/routes/index.router';
+import { FeedItem } from './controllers/v0/models/FeedItem';
+
 
 (async () => {
   await sequelize;
-  
+
   const app = express();
   const port = 8080; // default port to listen
+  
+  //VERY BAD
+  app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
+
+  app.use('/api/v0/', IndexRouter)
 
   // Root URI call
   app.get( "/", async ( req, res ) => {
     const item = await new FeedItem({caption: 'hello'+Math.random()});
     item.save();
-      res.send( "WOOOOOT!" );
+    res.send( "WOOOOOT!" );
   } );
+  
 
   // Start the Server
   app.listen( port, () => {
