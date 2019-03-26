@@ -2,12 +2,12 @@
   "name": "udacity-c2-restapi",
   "version": "1.0.0",
   "description": "",
-  "main": "src/index.js",
+  "main": "src/server.js",
   "scripts": {
     "start": "node .",
     "tsc": "tsc",
-    "dev": "ts-node-dev --respawn --transpileOnly ./src/index.ts",
-    "prod": "tsc && node ./www/index.js",
+    "dev": "ts-node-dev --respawn --transpileOnly ./src/server.ts",
+    "prod": "tsc && node ./www/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -15,11 +15,21 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.4",
+    "pg": "^7.9.0",
+    "reflect-metadata": "^0.1.13",
+    "sequelize": "^5.1.1",
+    "sequelize-typescript": "^0.6.8",
     "ts-node-dev": "^1.0.0-pre.32"
   },
   "devDependencies": {
+    "@types/bluebird": "^3.5.26",
     "@types/express": "^4.16.1",
     "@types/node": "^11.11.6",
+    "@types/sequelize": "^4.27.44",
+    "@types/validator": "^10.9.0",
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.1",
+    "mocha": "^6.0.2",
     "tslint": "^5.14.0",
     "typescript": "^3.3.4000"
   }

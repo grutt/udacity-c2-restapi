@@ -1,1 +1,5 @@
 node_modules/
+postgres_dev/
+logfile
+
+.DS_Store
