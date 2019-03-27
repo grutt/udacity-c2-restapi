@@ -5,12 +5,15 @@ import { sequelize } from './sequelize';
 import { IndexRouter } from './controllers/v0/routes/index.router';
 import { FeedItem } from './controllers/v0/models/FeedItem';
 
+import bodyParser from 'body-parser';
 
 (async () => {
   await sequelize;
 
   const app = express();
   const port = 8080; // default port to listen
+  
+  app.use(bodyParser.json());
   
   //VERY BAD
   app.use(function(req, res, next) {
@@ -23,9 +26,7 @@ import { FeedItem } from './controllers/v0/models/FeedItem';
 
   // Root URI call
   app.get( "/", async ( req, res ) => {
-    const item = await new FeedItem({caption: 'hello'+Math.random()});
-    item.save();
-    res.send( "WOOOOOT!" );
+    res.send( "/api/v0/" );
   } );
   
 
