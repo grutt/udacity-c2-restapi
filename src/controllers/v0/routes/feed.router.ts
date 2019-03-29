@@ -2,10 +2,13 @@ import { Router, Request, Response } from 'express';
 
 import { FeedItem } from '../models/FeedItem';
 
+import { requireAuth } from './auth.router';
+
 import { s3, feedUrlBucket } from '../../../aws';
 
 
 const router: Router = Router();
+
 
 function getSignedUrl( key: string ){
     const signedUrlExpireSeconds = 60 * 5
@@ -29,7 +32,7 @@ router.get('/', async (req: Request, res: Response) => {
     res.send(items);
 });
 
-router.get('/signed-url/:fileName', async (req: Request, res: Response) => {
+router.get('/signed-url/:fileName', requireAuth, async (req: Request, res: Response) => {
     let { fileName } = req.params;
 
     const signedUrlExpireSeconds = 60 * 5
@@ -45,15 +48,12 @@ router.get('/signed-url/:fileName', async (req: Request, res: Response) => {
     res.status(201).send({url: url});
 });
 
-router.post('/', async (req: Request, res: Response) => {
+router.post('/', requireAuth, async (req: Request, res: Response) => {
     
     // const items = await FeedItem.findAndCountAll();
-    console.log(req.body)
     const caption = req.body.caption;
     const fileName = req.body.url;
     
-    console.log(caption)
-
     const item = await new FeedItem({
             caption: caption,
             url: fileName
@@ -63,19 +63,19 @@ router.post('/', async (req: Request, res: Response) => {
     res.status(201).send(saved_item);
 });
 
-router.get('/:id', async (req: Request, res: Response) => {
+router.get('/:id', requireAuth, async (req: Request, res: Response) => {
     let { id } = req.params;
     const item = await FeedItem.findByPk(id);
     res.send(item);
 });
 
-router.delete('/:id', async (req: Request, res: Response) => {
+router.delete('/:id', requireAuth, async (req: Request, res: Response) => {
     let { id } = req.params;
     const item = await FeedItem.findByPk(id);
     res.status(204).send(item);
 });
 
-router.patch('/:id', async (req: Request, res: Response) => {
+router.patch('/:id', requireAuth, async (req: Request, res: Response) => {
     let { id } = req.params;
     const item = await FeedItem.findByPk(id);
     res.status(201).send(item);

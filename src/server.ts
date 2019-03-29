@@ -14,7 +14,7 @@ import bodyParser from 'body-parser';
   const port = 8080; // default port to listen
   
   app.use(bodyParser.json());
-  
+
   //VERY BAD
   app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
