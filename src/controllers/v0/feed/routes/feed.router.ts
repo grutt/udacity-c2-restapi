@@ -1,7 +1,7 @@
 import { Router, Request, Response } from 'express';
 import { FeedItem } from '../models/FeedItem';
-import { requireAuth } from './auth.router';
-import * as AWS from '../../../aws';
+import { requireAuth } from '../../user/routes/auth.router';
+import * as AWS from '../../../../aws';
 
 const router: Router = Router();
 
@@ -15,6 +15,23 @@ router.get('/', async (req: Request, res: Response) => {
     });
     res.send(items);
 });
+
+// Get a specific resource
+router.get('/:id', 
+    async (req: Request, res: Response) => {
+    let { id } = req.params;
+    const item = await FeedItem.findByPk(id);
+    res.send(item);
+});
+
+// update a specific resource
+router.patch('/:id', 
+    requireAuth, 
+    async (req: Request, res: Response) => {
+        //@TODO try it yourself
+        res.send(500).send("not implemented")
+});
+
 
 // Get a signed url to put a new item in the bucket
 router.get('/signed-url/:fileName', 
@@ -53,22 +70,6 @@ router.post('/',
 
     saved_item.url = AWS.getGetSignedUrl(saved_item.url);
     res.status(201).send(saved_item);
-});
-
-// Get a specific resource
-router.get('/:id', 
-    async (req: Request, res: Response) => {
-    let { id } = req.params;
-    const item = await FeedItem.findByPk(id);
-    res.send(item);
-});
-
-// update a specific resource
-router.patch('/:id', 
-    requireAuth, 
-    async (req: Request, res: Response) => {
-        //@TODO try it yourself
-        res.send(500).send("not implemented")
 });
 
 export const FeedRouter: Router = router;

@@ -1,9 +1,7 @@
 import express from 'express';
 import { sequelize } from './sequelize';
-// import {Sequelize} from 'sequelize-typescript';
 
-import { IndexRouter } from './controllers/v0/routes/index.router';
-import { FeedItem } from './controllers/v0/models/FeedItem';
+import { IndexRouter } from './controllers/v0/index.router';
 
 import bodyParser from 'body-parser';
 
