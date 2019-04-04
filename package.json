@@ -8,12 +8,12 @@
     "tsc": "tsc",
     "dev": "ts-node-dev --respawn --transpileOnly ./src/server.ts",
     "prod": "tsc && node ./www/server.js",
-    "clean": "rm -rf www/ && rm www.zip",
-    "build": "npm run clean && tsc && cp package.json www/package.json && zip -r www.zip www",
+    "clean": "rm -rf www/ || true && rm www.zip || true",
+    "build": "npm run clean && tsc && cp -rf src/config www/config && cp .npmrc www/.npmrc && cp package.json www/package.json && cd www && zip -r Archive.zip . && cd ..",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "Gabriel Ruttner",
   "license": "ISC",
   "dependencies": {
     "@types/bcrypt": "^3.0.0",
