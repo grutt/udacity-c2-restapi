@@ -1,11 +1,10 @@
 import {Sequelize} from 'sequelize-typescript';
 var config = require('./config/config.json')
 
-// import { FeedItem } from './controllers/v0/models'
-
 config = config.dev;
 
-const sq =  new Sequelize({
+// Instantiate new Sequelize instance!
+export const sequelize = new Sequelize({
   "username": config.username,
   "password": config.password,
   "database": config.database,
@@ -18,7 +17,3 @@ const sq =  new Sequelize({
     __dirname + '/controllers/v0/users/models/',
   ]
 });
-
-// sq.addModels([]);
-
-export const sequelize = sq;

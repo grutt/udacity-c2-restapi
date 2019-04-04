@@ -3,7 +3,7 @@ import { Router, Request, Response } from 'express';
 import { User } from '../models/User';
 import { AuthRouter, requireAuth } from './auth.router';
 
-import { s3, feedUrlBucket } from '../../../aws';
+import { s3, feedUrlBucket } from '../../../../aws';
 
 const router: Router = Router();
 
