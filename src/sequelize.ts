@@ -1,15 +1,17 @@
 import {Sequelize} from 'sequelize-typescript';
-// import { FeedItem } from './controllers/v0/models'
+import { config } from './config/config';
 
-const sq =  new Sequelize({
-  database: 'database_dev',
+
+const c = config.dev;
+
+// Instantiate new Sequelize instance!
+export const sequelize = new Sequelize({
+  "username": c.username,
+  "password": c.password,
+  "database": c.database,
+  "host":     c.host,
+
   dialect: 'postgres',
-  username: '',
-  password: '',
   storage: ':memory:',
-  modelPaths: [__dirname + '/controllers/v0/models']
 });
 
-// sq.addModels([]);
-
-export const sequelize = sq;

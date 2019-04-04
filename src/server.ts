@@ -1,24 +1,26 @@
 import express from 'express';
 import { sequelize } from './sequelize';
-// import {Sequelize} from 'sequelize-typescript';
 
-import { IndexRouter } from './controllers/v0/routes/index.router';
-import { FeedItem } from './controllers/v0/models/FeedItem';
+import { IndexRouter } from './controllers/v0/index.router';
 
 import bodyParser from 'body-parser';
 
+import { V0MODELS } from './controllers/v0/model.index';
+
 (async () => {
-  await sequelize;
+  await sequelize.addModels(V0MODELS);
+  await sequelize.sync();
 
   const app = express();
-  const port = 8080; // default port to listen
+  const port = process.env.PORT || 8080; // default port to listen
   
   app.use(bodyParser.json());
 
   //VERY BAD
   app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    // res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Origin", "http://localhost:8100");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
     next();
   });
 
