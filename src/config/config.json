@@ -1,9 +1,9 @@
 {
   "dev": {
-    "username": "udagramdevelopment1",
-    "password": "helloworld",
-    "database": "udagramdevelopment1",
-    "host": "udagramdevelopment1.c79fzt27bzf6.us-east-2.rds.amazonaws.com",
+    "username": "udagramruttnerdev",
+    "password": "udagramruttnerdev",
+    "database": "udagramruttnerdev",
+    "host": "udagramruttnerdev.c79fzt27bzf6.us-east-2.rds.amazonaws.com",
     "dialect": "postgres"
   },
   "prod": {

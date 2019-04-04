@@ -1,4 +1,4 @@
-var AWS = require('aws-sdk');
+import AWS = require('aws-sdk');
 
 export const feedUrlBucket = 'udagram-ruttner-dev'
 
@@ -13,6 +13,7 @@ export const s3 = new AWS.S3({
   params: {Bucket: feedUrlBucket}
 });
 
+
 /* getGetSignedUrl generates an aws signed url to retreive an item
  * @Params
  *    key: string - the filename to be put into the s3 bucket
@@ -20,16 +21,16 @@ export const s3 = new AWS.S3({
  *    a url as a string
  */
 export function getGetSignedUrl( key: string ): string{
+  return 'https://s3-us-west-1.amazonaws.com/udacity-content/images/icon-error.svg';
+  // const signedUrlExpireSeconds = 60 * 5
 
-    const signedUrlExpireSeconds = 60 * 5
+    // const url = s3.getSignedUrl('getObject', {
+    //     Bucket: feedUrlBucket,
+    //     Key: key,
+    //     Expires: signedUrlExpireSeconds
+    //   });
 
-    const url = s3.getSignedUrl('getObject', {
-        Bucket: feedUrlBucket,
-        Key: key,
-        Expires: signedUrlExpireSeconds
-      });
-
-    return url;
+    // return url;
 }
 
 /* getPutSignedUrl generates an aws signed url to put an item
@@ -39,14 +40,14 @@ export function getGetSignedUrl( key: string ): string{
  *    a url as a string
  */
 export function getPutSignedUrl( key: string ){
+    return 'wompwomp';
+    // const signedUrlExpireSeconds = 60 * 5
 
-    const signedUrlExpireSeconds = 60 * 5
+    // const url = s3.getSignedUrl('putObject', {
+    //   Bucket: feedUrlBucket,
+    //   Key: key,
+    //   Expires: signedUrlExpireSeconds
+    // });
 
-    const url = s3.getSignedUrl('putObject', {
-      Bucket: feedUrlBucket,
-      Key: key,
-      Expires: signedUrlExpireSeconds
-    });
-
-    return url;
+    // return url;
 }
