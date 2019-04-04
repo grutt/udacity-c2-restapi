@@ -9,7 +9,7 @@ import bodyParser from 'body-parser';
   await sequelize;
 
   const app = express();
-  const port = 8080; // default port to listen
+  const port = 8081; // default port to listen
   
   app.use(bodyParser.json());
 
