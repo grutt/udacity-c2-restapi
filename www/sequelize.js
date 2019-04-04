@@ -11,9 +11,5 @@ exports.sequelize = new sequelize_typescript_1.Sequelize({
     "host": c.host,
     dialect: 'postgres',
     storage: ':memory:',
-    modelPaths: [
-        __dirname + '/controllers/v0/feed/models/',
-        __dirname + '/controllers/v0/users/models/',
-    ]
 });
 //# sourceMappingURL=sequelize.js.map
