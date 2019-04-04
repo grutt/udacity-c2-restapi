@@ -1,23 +1,16 @@
 {
   "dev": {
-    "username": "",
-    "password": null,
-    "database": "database_dev",
-    "host": "localhost",
-    "dialect": "postgres"
-  },
-  "stage": {
-    "username": "root",
-    "password": null,
-    "database": "database_test",
-    "host": "localhost",
+    "username": "udagramruttnerdev",
+    "password": "udagramruttnerdev",
+    "database": "udagramruttnerdev",
+    "host": "udagramruttnerdev.c79fzt27bzf6.us-east-2.rds.amazonaws.com",
     "dialect": "postgres"
   },
   "prod": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "localhost",
+    "username": "",
+    "password": "",
+    "database": "udagram_prod",
+    "host": "",
     "dialect": "postgres"
   }
 }
