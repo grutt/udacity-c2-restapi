@@ -1,5 +1,8 @@
-https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html
+## Getting Started
 
+
+
+https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html
 
 brew update
 brew install postgres
@@ -17,3 +20,6 @@ npm install -g sequelize-cli
 export NODE_ENV=dev
 
 https://medium.com/@aakashbanerjee/upload-files-to-amazon-s3-from-the-browser-using-pre-signed-urls-4602a9a90eb5
+
+## Running the Server
+npm run dev

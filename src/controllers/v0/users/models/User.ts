@@ -1,12 +1,14 @@
 import {Table, Column, Model, HasMany, PrimaryKey, CreatedAt, UpdatedAt} from 'sequelize-typescript';
 
 @Table
-export class FeedItem extends Model<FeedItem> {
+export class User extends Model<User> {
+  
+  @PrimaryKey
   @Column
-  public caption!: string;
+  public email!: string;
 
   @Column
-  public url!: string; // for nullable fields
+  public password_hash!: string; // for nullable fields
 
   @Column
   @CreatedAt
@@ -15,4 +17,10 @@ export class FeedItem extends Model<FeedItem> {
   @Column
   @UpdatedAt
   public updatedAt: Date = new Date();
+
+  short() {
+    return {
+      email: this.email
+    }
+  }
 }
