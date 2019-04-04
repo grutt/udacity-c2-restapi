@@ -4,7 +4,9 @@
     "password": "udagramruttnerdev",
     "database": "udagramruttnerdev",
     "host": "udagramruttnerdev.c79fzt27bzf6.us-east-2.rds.amazonaws.com",
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "aws_reigion": "us-east-2",
+    "aws_profile": "default"
   },
   "prod": {
     "username": "",
