@@ -1,14 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_typescript_1 = require("sequelize-typescript");
-var config = require('./config/config.json');
-config = config.dev;
+const config_1 = require("./config/config");
+const c = config_1.config.dev;
 // Instantiate new Sequelize instance!
 exports.sequelize = new sequelize_typescript_1.Sequelize({
-    "username": config.username,
-    "password": config.password,
-    "database": config.database,
-    "host": config.host,
+    "username": c.username,
+    "password": c.password,
+    "database": c.database,
+    "host": c.host,
     dialect: 'postgres',
     storage: ':memory:',
     modelPaths: [

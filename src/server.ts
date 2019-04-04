@@ -6,7 +6,7 @@ import { IndexRouter } from './controllers/v0/index.router';
 import bodyParser from 'body-parser';
 
 (async () => {
-  await sequelize;
+  await sequelize.sync();
 
   const app = express();
   const port = process.env.PORT || 8080; // default port to listen

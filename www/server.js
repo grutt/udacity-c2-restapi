@@ -16,7 +16,7 @@ const sequelize_1 = require("./sequelize");
 const index_router_1 = require("./controllers/v0/index.router");
 const body_parser_1 = __importDefault(require("body-parser"));
 (() => __awaiter(this, void 0, void 0, function* () {
-    yield sequelize_1.sequelize;
+    yield sequelize_1.sequelize.sync();
     const app = express_1.default();
     const port = process.env.PORT || 8080; // default port to listen
     app.use(body_parser_1.default.json());

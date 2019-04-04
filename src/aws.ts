@@ -1,6 +1,7 @@
 import AWS = require('aws-sdk');
+import { config } from './config/config';
 
-export const feedUrlBucket = 'udagram-ruttner-dev'
+const c = config.dev;
 
 //Configure AWS
 //TODO IF ENV IS DEV
@@ -9,8 +10,8 @@ AWS.config.credentials = credentials;
 
 export const s3 = new AWS.S3({
   signatureVersion: 'v4',
-  region: 'us-east-2',
-  params: {Bucket: feedUrlBucket}
+  region: c.aws_reigion,
+  params: {Bucket: c.aws_media_bucket}
 });
 
 
