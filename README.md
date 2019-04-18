@@ -1,73 +1,79 @@
-# Udagram RestAPI Backend
+# Udagram Image Filtering Microservice
 
-Udagram is a simple cloud application developed along side the Udacity Cloud Engineering Nanodegree. It allows users to register and log into a web client, post photos to the feed, and process photos using an image filtering microservice.
+Udagram is a simple cloud application developed alongside the Udacity Cloud Engineering Nanodegree. It allows users to register and log into a web client, post photos to the feed, and process photos using an image filtering microservice.
 
 The project is split into three parts:
 1. [The Simple Frontend](https://github.com/grutt/udacity-c2-frontend)
 A basic Ionic client web application which consumes the RestAPI Backend. 
-2. [The RestAPI Backend](https://github.com/grutt/udacity-c2-restapi) `This Repo`
-Which is a Node-Express server which can be deployed to a cloud service.
-3. [The Image Filtering Microservice](https://github.com/grutt/udacity-c2-image-filter)
-Which is the final project for the course. It is a Node-Express application which runs a simple Python script to process images.
-***
+2. [The RestAPI Backend](https://github.com/grutt/udacity-c2-restapi), a Node-Express server which can be deployed to a cloud service.
+3. [The Image Filtering Microservice](https://github.com/grutt/udacity-c2-image-filter), the final project for the course. It is a Node-Express application which runs a simple Python script to process images.
 
-## Getting Setup
-### Installing Node and NPM
-This project depends on Nodejs and Node Package Manager (NPM). Before continuing, you must download and install Node (NPM is included) from [https://nodejs.com/en/download](https://nodejs.org/en/download/).
+## Tasks
+### Setup Python Environment
+You'll need to set up and use a virtual environment for this project.
+
+To create a virtual environment run the following from within the project directory:
+1. Install virtualenv dependency: `pip install virtualenv`
+2. Create a virtual environment:    `virtualenv venv`
+3. Activate the virtual environment: `source venv/bin/activate` (Note: You'll need to do this every time you open a new terminal)
+4. Install dependencies: `pip install -r requirements.txt`
+
+When you're done working and leave the virtual environment, run: `deactivate`
+
+### Setup Node Environment
+You'll need to create a new node server. Open a new terminal within the project directory and run:
+1. Initialize a new project: `npm init`
+2. Install express: `npm i express --save`
+3. Install typescript dependencies: `npm i ts-node-dev tslint typescript  @types/bluebird @types/express @types/node --save-dev`
+4. Look at the `package.json` file from the RestAPI repo and copy the `scripts` block into the auto-generated `package.json` in this project. This will allow you to use shorthand commands like `npm run dev`
+
+### Create a new server.ts file
+Use our basic server as an example to set up this file. For this project, it's ok to keep all of your business logic in the one server.ts file, but you can try to use feature directories and app.use routing if you're up for it. Use the RestAPI structure to guide you.
+
+### Add an endpoint to handle POST /imagetoprocess requests
+It should accept two POST parameter:
+>    image_url: string - a public URL of a valid image file
+
+>    upload_image_signedUrl: string (OPTIONAL) - a URL which will allow a PUT request with the processed image
+    
+It should respond with 422 unprocessable if either POST parameters are invalid.
+
+It should require a token in the Auth Header or respond with 401 unauthorized.
+
+It should be versioned.
+
+> The matching token should be saved as an environment variable
+    
+> (TIP we broke this out into its own auth.router before, but you can access headers as part of the req.headers within your endpoint block)
+
+It should respond with the image as the body if upload_image_signedUrl is included in the request.
+
+It should respond with a success message if upload_image_signedUrl is NOT included in the request.
 
 
-### Installing project dependencies
-This project uses NPM to manage software dependencies. NPM Relies on the package.json file located in the root of this repository. After cloning, open your terminal and run:
-```bash
-npm install
-```
->_tip_: **npm i** is shorthand for **npm install**
+### Refactor your RestApi server
+#### Add a request to the image-filter server within the RestAPI POST feed endpoint
 
-### Installing useful tools
-#### 1. [Postbird](https://github.com/paxa/postbird)
-Postbird is a useful client GUI (graphical user interface) to interact with our provisioned Postgres database. We can establish a remote connection and complete actions like viewing data and changing schema (tables, columns, ect).
+It should create new SignedURLs required for the imagetoprocess POST Request body.
 
-#### 2. [Postman](https://www.getpostman.com/downloads/)
-Postman is a useful tool to issue and save requests. Postman can create GET, PUT, POST, etc. requests complete with bodies. It can also be used to test endpoints automatically. We've included a collection (`./udacity-c2-restapi.postman_collection.json `) which contains example requsts.
+It should include a POST request to the new server (TIP keep the server address and token as environment variables).
 
-### Provisioning Cloud Datastores
-Before running the complete server, you'll need provision:
-1. Relational Postgres using RDS
-2. Media Assets using S3
+It should overwrite the image in the bucket with the filtered image (in other words, it will have the same filename in S3).
 
-We cover the process of setting up these cloud services in depth in the course. 
 
-Your configuration for these resources must be set in  `./src/config/config.ts` (or better yet, as enviornment variables using the instructions in the enviornment variable concept).
+### Deploying your system!
+Follow the process described in the course to `eb init` a new application and `eb create` a new environment to deploy your image-filter service!
 
->_tip_: this project uses the SignedURL pattern to provide authorized links to interact with resources in our S3 buckets. [Here's some additional reading](https://medium.com/@aakashbanerjee/upload-files-to-amazon-s3-from-the-browser-using-pre-signed-urls-4602a9a90eb5) on the topic.
 
-***
-## Project Structure
+## Stand Out
+#### Postman Integration Tests
+Try writing a postman collection to test your endpoint. Be sure to cover:
+> POST requests with and without tokens
+> POST requests with valid and invalid parameters
 
-The main entry point for the server is `./src/server.ts`, however, in this more complex project, api endpoints are broken into feature directories. In `server.ts`, the `api/v0/` endpoints are linked using this line of code.
-```javascript 
-  app.use('/api/v0/', IndexRouter)
-```
+#### Refactor Data Models
+Try adding another column to your tables to save a separate key for your filtered image. Remember, you'll have to rename the file before adding it to S3!
 
-`IndexRouter` is located within `./src/controllers/v0/index.router.ts` where `./src/controllers/v0/` contains all the v0 routes and models which are again logically modularized into feed and users.
+#### (ADVANCED) Refactor Data Models
+Try adding a second OpenCV filter script and add an additional parameter to select which filter to use as a POST parameter
 
-This project also uses [SequelizeJs](http://docs.sequelizejs.com/) as an Object-Relational Map (ORM) to link our local variable objects to our relational database. Each feature's models are located in a `models/` directory in the feature directory. The `./src/sequelize.ts` file instantiates the Sequelize object using our configuration in `./src/config/config.ts`. The database state is managed using migrations located in `./src/migrations/`. These migrations are run when the server is first run, if the database is not at the most recent state.
-
-This project uses AWS S3 to store media (images). The AWS SDK and S3 service is instantatied with configuration from `./src/config/config.ts` in `./src/aws.ts`.
-
-***
-
-## Running the Server Locally
-To run the server locally in developer mode, open terminal and run:
-```bash
-npm run dev
-```
-
-Developer mode runs off the TypeScript source. Any saves will reset the server and run the latest version of the codebase. 
-
-## Building for Deployment
-To transpile and build the source for deployment, open terminal and run:
-```bash
-npm run build
-```
-This will transpile the TypeScript source into JavaScript, copy our required package.json file, and zip to create a build artifact `./www/Archive.zip`. This artifact can be uploaded to elastic beanstalk for deployment.
